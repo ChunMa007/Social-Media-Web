@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+                <div class="text-center p-5 rounded shadow-sm" style="width: 25%;">
+                    <h2 class="fw-bold mb-3">Login</h2>
+                    {{ form.as_p }}
+
+                    <div class="d-grid mt-4 mb-4">
+                        <button class="btn btn-success btn-block">Login</button>
+                    </div>
+
+                    <p>Don't have an account? <a href="{% url "website:signup" %}" class="text-primary text-decoration-none">Sign Up</a></p>
+                </div>
+            </div>
+        </form>
+{% endblock %}
