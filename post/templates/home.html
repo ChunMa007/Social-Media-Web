@@ -4,11 +4,12 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-4 bg-danger-subtle">
+    <div class="col-md-4">
         1
     </div>
 
-    <div class="col-md-4 bg-dark" style="overflow-y: auto; height: 100vh;">
+{% comment %} style="overflow-y: auto; height: 100vh;" {% endcomment %}
+    <div class="col-md-4" >
         <div class="bg-secondary-subtle ps-3 pt-3 pb-2 pt-4 mt-3 rounded">
             <form action="." method="POST">
                 {% csrf_token %}
@@ -35,7 +36,10 @@
                         <img src="{{ post.author.profile.image.url }}" alt="" class="rounded-circle border" style="height: 50px; width: 50px;">    
                     </div>
                     <div>
-                        <h6 class="fw-bold">{{ post.author.username }}</h6>
+                        <a href="{% url "user_profile:user_profile" post.author.username %}" class="text-dark text-decoration-none">
+                            <h6 class="fw-bold">{{ post.author.username }}</h6>
+                        </a>
+                        
                         <p>{{ post.created_at }}</p>
                     </div> 
                 </div>
@@ -43,6 +47,7 @@
                 <div>
                     <p>{{ post.content }}</p>
                 </div>
+                <p class="text-muted text-end"><a href=""></a>{{ post.comments.count }} comments</p>
                 <hr>
                 <div class="btn-group d-flex justify-content-between">
                     <button class="col-4 btn btn-outline-light text-dark" type="button">
@@ -91,7 +96,6 @@
                                 </div>
                                 <hr>
 
-                                {% comment %} Display all comments in a post {% endcomment %}
                                 {% for comment in post.comments.all %}
                                     <div class="d-flex mb-2">
                                         <div class="me-3">
@@ -126,35 +130,15 @@
                         </div>
                     </form>  
 
-                    <button class="col-4 btn btn-outline-light text-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#{{ post.id }}" aria-controls="offcanvasExample">
+                    <button class="col-4 btn btn-outline-light text-dark" type="button">
                         <i class="bi bi-share me-2"></i>Share
                     </button>
                 </div>
-
-                    {% comment %} <div class="collapse" id="{{ post.id }}">
-                        <hr>
-                        <form action="." method="POST">
-                            {% csrf_token %}
-
-                            <div class="d-flex">
-                                <div class="me-2">
-                                    <img src="{{ request.user.profile.image.url }}" alt="" class="rounded-circle border" style="height: 40px; width: 40px;">
-                                </div>
-                                <div class="me-1">
-                                    <input type="hidden" name="post_id" value={{ post.id }}>
-                                    {{ create_comment_form.as_p }}
-                                </div>
-                                <div>
-                                    <button class="btn" name="create_comment"><i class="bi bi-send-fill"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </div> {% endcomment %}
             </div> 
         {% endfor %}
     </div>
 
-    <div class="col-md-4 bg-warning-subtle">
+    <div class="col-md-4">
         3
     </div>
 </div>

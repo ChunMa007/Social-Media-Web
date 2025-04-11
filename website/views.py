@@ -23,6 +23,10 @@ def user_login(request):
         'form': form,
     })
 
+def user_logout(request):
+    logout(request)
+    return redirect('website:login')
+
 def user_signup(request):
     if request.method == "POST":
         user_form = UserSignUpForm(request.POST or None)

@@ -11,7 +11,9 @@
 
 </head>
 <body>
-    <div class="container-fluid">
+    {% include "navbar.html" %}
+
+    <div class="container-fluid bg-dark">
         {% if messages %}
             {% for message in messages %}
             <div class="position-fixed top-0 start-50 translate-middle-x z-3 mt-3">
@@ -29,7 +31,7 @@
         {% endif %}
 
         {% block content %}
-        
+            
         {% endblock %}
     </div>
 
